@@ -45,6 +45,7 @@ namespace ProductosApp.Formularios
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+
         }
 
         private void FrmProducto_Load_1(object sender, EventArgs e)
