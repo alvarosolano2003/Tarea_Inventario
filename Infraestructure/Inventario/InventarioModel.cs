@@ -28,6 +28,7 @@ namespace Infraestructure.Inventario
             Array.Copy(arr, tmp, arr.Length);
             tmp[arr.Length + 1] = e;
             arr = tmp;
+
         }
 
         public void OrdenarPorFecha(Registros[] arr, int n)
