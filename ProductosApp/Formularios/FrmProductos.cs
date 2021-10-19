@@ -16,9 +16,11 @@ namespace ProductosApp.Formularios
 {
     public partial class FrmProductos : Form
     {
+        private IProductoService productoService;
         public InventarioModel inv;
-        public FrmProductos()
+        public FrmProductos(IProductoService productoService)
         {
+            this.productoService = productoService;
             InitializeComponent();
         }
 
@@ -26,6 +28,8 @@ namespace ProductosApp.Formularios
         {
             FrmProducto frmProducto = new FrmProducto();
             frmProducto.ShowDialog();
+
+            rtbView.Text = productoService.GetProductosAsJson();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
