@@ -15,7 +15,17 @@ namespace Infraestructure.Productos
         #region CRUD
         public void Create(Producto p)
         {
-            Add(p, ref productos);
+            if (productos == null)
+            {
+                productos = new Producto[1];
+                productos[productos.Length - 1] = p;
+                return;
+            }
+
+            Producto[] tmp = new Producto[productos.Length + 1];
+            Array.Copy(productos, tmp, productos.Length);
+            tmp[tmp.Length - 1] = p;
+            productos = tmp;
         }
 
         public int Update(Producto p)
@@ -91,7 +101,7 @@ namespace Infraestructure.Productos
             {
                 if(p.UnidadMedida == um)
                 {
-                    Add(p, ref tmp);
+                    Create(p);
                 }
             }
 
@@ -108,9 +118,9 @@ namespace Infraestructure.Productos
 
             foreach(Producto p in productos)
             {
-                if(p.FechaVencimiento.CompareTo(dt) <= 0)
+                if (p.FechaVencimiento.CompareTo(dt) <= 0)
                 {
-                    Add(p, ref tmp);
+                    Create(p);
                 }
             }
 
@@ -129,7 +139,7 @@ namespace Infraestructure.Productos
             {
                 if(p.Precio >= start && p.Precio <= end)
                 {
-                    Add(p, ref tmp);
+                    Create(p);
                 }
             }
 
@@ -154,20 +164,6 @@ namespace Infraestructure.Productos
         #endregion
 
         #region Private Method
-        private void Add(Producto p, ref Producto[] pds)
-        {
-            if(pds == null)
-            {
-                pds = new Producto[1];
-                pds[pds.Length - 1] = p;
-                return;
-            }
-
-            Producto[] tmp = new Producto[pds.Length + 1];
-            Array.Copy(pds, tmp, pds.Length);
-            tmp[tmp.Length - 1] = p;
-            pds = tmp;
-        }
 
         private int GetIndexById(int id)
         {
